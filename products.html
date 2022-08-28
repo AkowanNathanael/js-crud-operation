@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu">
+        GROUP E INC   
+        <button id="add-poductBtn" class=" float-right">add product</button>
+    </div>
+
+    <!-- table for editing items -->
+    <form action="" class="details" id="details">
+         <button class="close float-right" id="close">X</button>
+       <fieldset>
+        <legend>Edit Product Table</legend>
+        <input type="number" name="id"  placeholder="enter id" id="id"> <br>
+        <input type="text" name="name" placeholder="enter product name" id="name"> <br>
+        <input type="number" name="price" placeholder="enter product price" id="price"> <br>
+        <input type="text" name="supplier" placeholder="enter supplier name" id="supplier"> <br>
+        <input type="submit" value="save" id="details-save"> <br>
+       </fieldset>
+    </form>
+
+
+    <!-- table for adding items -->
+    <form action="" class="add-form" id="add-form">
+        <button class="close float-right" id="close">X</button>
+        <fieldset>
+         <legend>Add product Table</legend>
+         <input type="number" name="id"  placeholder="enter id" id="add-id"> <br>
+         <input type="text" name="name" placeholder="enter product name" id="add-name"> <br>
+         <input type="number" name="price" placeholder="enter product price" id="add-price"> <br>
+         <input type="text" name="supplier" placeholder="enter supplier name" id="add-supplier"> <br>
+         <input type="submit" value="add-to-table" id="add-to-table"> <br>
+        </fieldset>
+     </form>
+
+
+    <table >
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Price (GHC)</th>
+                <th>Supplier </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+                <tr>
+                    <td id="1">100</td>
+                    <td id="2">Gari</td>
+                    <td id="3">200</td>
+                    <td id="4">Comfort</td>
+                    <td id="5">
+                        <button class="edit">edit</button>
+                        <button class="delete"> delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="1">200</td>
+                    <td id="2">Biscuit</td>
+                    <td id="3">200</td>
+                    <td id="4">Nat</td>
+                    <td id="5">
+                        <button class="edit">edit</button>
+                        <button class="delete"> delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="1">324</td>
+                    <td id="2">Clothen</td>
+                    <td id="3">500</td>
+                    <td id="4">Adam</td>
+                    <td id="5">
+                        <button class="edit">edit</button>
+                        <button class="delete"> delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="1">455</td>
+                    <td id="2">Tomatoes</td>
+                    <td id="3">200</td>
+                    <td id="4">Comfort</td>
+                    <td id="5">
+                        <button class="edit">edit</button>
+                        <button class="delete"> delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="1">233</td>
+                    <td id="2">Soap</td>
+                    <td id="3">Ghc 7800</td>
+                    <td id="4">Alberta</td>
+                    <td id="5">
+                        <button class="edit">edit</button>
+                        <button class="delete"> delete</button>
+                    </td>
+                </tr>
+                
+        </tbody>
+    </table>
+
+
+
+    
+
+    <div class="container">
+        <div class="container-title">Group Members</div>
+        <div class="container-group-members">
+            <div class="circle">
+                ID
+                <div class="rounded-name">20200404251</div>
+            </div>
+            <div class="circle">
+                ID
+                <div class="rounded-name">20200404567</div>
+            </div>
+            <div class="circle">
+                ID
+                <div class="rounded-name">FMS/0159/19</div>
+            </div>
+            <div class="circle">
+                ID
+                <div class="rounded-name">FMS/0160/19</div>
+            </div>
+            <div class="circle">
+                ID
+                <div class="rounded-name">FMS/0164/19</div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- js scripts -->
+    <script>
+        // Element for Details form modal
+        var detailsId=document.getElementById("id")
+        var detailsName=document.getElementById("name")
+        var detailPrice=document.getElementById("price");
+        var detailsSupplier=document.getElementById("supplier")
+        var detailsSave=document.getElementById("details-save")
+
+        // elements for the table
+        const detailsForm =document.getElementById("details");
+        const editBtn=document.querySelector(".edit");
+        const deleteBtn=document.querySelector(".delete")
+        const tbodyElement=document.querySelector("#tbody")
+        var temp;
+        var tempEl;
+        var tempVal=[];
+
+        // 
+        detailsForm.addEventListener("click",(e)=>{
+            e.preventDefault()
+            if(e.target.classList.contains("close")){
+                    console.log(e.target)
+                    e.target.parentElement.style.display="none"
+                    e.target.parentElement.style.opacity="0"
+
+                }
+        })
+
+
+        // function to delete and edit element in table
+        tbodyElement.addEventListener("click",(e)=>{
+
+            if(e.target.classList.contains("delete")){
+                e.target.parentElement.parentElement.remove()
+            }
+
+            if(e.target.classList.contains("edit")){
+                tempEl=e.target.parentElement.parentElement
+                temp=e.target.parentElement.parentElement.children
+                temp=Array.from(temp)
+                // console.log(temp)
+                temp.forEach((el)=>{
+                    //put tempval in the tempval array
+                    tempVal.push(el.innerText)
+                    
+                })
+                 detailsId.value=temp[0].innerText
+                detailsName.value=temp[1].innerText
+                detailPrice.value=parseFloat(temp[2].innerText);
+                detailsSupplier.value=temp[3].innerText
+
+                // testing
+                // console.log(temp[0].innerText)
+                // console.log(temp[1].innerText)
+                // console.log(temp[2].innerText)
+                // console.log(temp[3].innerText)
+                // console.log(tempVal)
+                detailsForm.style.opacity="1";
+                detailsForm.style.display="block"
+            }
+
+        })
+
+
+        //fucntion for  saving and appending edited products table
+        detailsSave.addEventListener("click",(e)=>{
+            e.preventDefault()
+            var editElementFromTable=tempEl
+
+            editElementFromTable.children[0].innerText=detailsId.value
+            editElementFromTable.children[1].innerText=detailsName.value
+            editElementFromTable.children[2].innerText=detailPrice.value
+            editElementFromTable.children[3].innerText=detailsSupplier.value
+
+            detailsForm.style.display="none"
+            detailsForm.style.opacity="0";
+        })
+
+
+        // <tr>
+        //             <td id="1">455</td>
+        //             <td id="2">Tomatoes</td>
+        //             <td id="3">200</td>
+        //             <td id="4">Comfort</td>
+        //             <td id="5">
+        //                 <button class="edit">edit</button>
+        //                 <button class="delete"> delete</button>
+        //             </td>
+        // </tr>
+
+        
+        //Add-form elements
+        var addFormId=document.getElementById("add-id")
+        var addFormName=document.getElementById("add-name")
+        var addFormPrice=document.getElementById("add-price")
+        var addFormSupplier=document.getElementById("add-supplier")
+
+        var tablebody=document.querySelector("tbody")
+        var add_productForm=document.getElementById("add-form");
+        var add_productBtn=document.getElementById("add-poductBtn");
+
+            //function to close addProduct from when the close button is closed
+        add_productForm.addEventListener("click",(e)=>{
+            e.preventDefault()
+            if(e.target.classList.contains("close")){
+                    console.log(e.target)
+                    e.target.parentElement.style.display="none"
+                    e.target.parentElement.style.opacity="0"
+
+                }
+        })
+
+        // add poduct  button that makes the add product form visible 
+        //also conatain function to close the form
+        add_productBtn.addEventListener("click",(e)=>{
+            console.log("block")
+            add_productForm.style.display="block"
+            add_productForm.style.opacity="1"            
+
+        })
+
+        //add product btn function
+        var add_to_table=document.getElementById("add-to-table");
+        add_to_table.addEventListener("click",(e)=>{
+            e.preventDefault()
+            var tr=document.createElement("tr");
+
+            var td1=document.createElement("td")
+            td1.setAttribute("id","1")
+            var td2=document.createElement("td");
+            td2.setAttribute("id","2");
+            var td3=document.createElement("td")
+            td3.setAttribute("id","3")
+            var td4=document.createElement("td")
+            td4.setAttribute("id","4")
+            var td5=document.createElement("td")
+            td5.setAttribute("id","5")
+
+            //edit and delete btn
+            var btnEdit1=document.createElement("button")
+            btnEdit1.setAttribute("class","edit")
+            btnEdit1.appendChild(document.createTextNode("edit"))
+            var btnDelete1=document.createElement("button")
+            btnDelete1.setAttribute("class","delete")
+            btnDelete1.appendChild(document.createTextNode("delete"))
+
+
+            //td data tobe inserted
+            td1.appendChild(document.createTextNode(`${addFormId.value}`))
+            td2.appendChild(document.createTextNode(`${addFormName.value}`))
+            td3.appendChild(document.createTextNode(`${addFormPrice.value}`))
+            td4.appendChild(document.createTextNode(`${addFormSupplier.value}`))
+            td5.appendChild(btnEdit1)
+            td5.appendChild(btnDelete1)
+
+            //appending table data(td) to table row tr
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tr.appendChild(td3)
+            tr.appendChild(td4)
+            tr.appendChild(td5)
+
+            tablebody.appendChild(tr)
+            addFormId.value=""
+            addFormName.value=""
+            addFormPrice.value=""
+            addFormSupplier.value=""
+
+            add_productForm.style.display="none"
+            add_productForm.style.opacity="0"
+
+        })
+
+
+        // details.
+        // var closeFormBtn=document.getElementById("close");
+        // add_product.addEventListener("click" ,(e)=>{
+        //     e.preventDefault()
+        //     if(e.target.classList.contains("close")){
+        //             console.log(e.target)
+        //             e.target.parentElement.style.display="none"
+        //             e.target.parentElement.style.opacity="0"
+
+        //         }
+        // })
+
+    </script>
+</body>
+</html>
